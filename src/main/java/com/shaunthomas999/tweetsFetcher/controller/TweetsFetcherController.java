@@ -1,16 +1,19 @@
 package com.shaunthomas999.tweetsFetcher.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.twitter.api.CursoredList;
-import org.springframework.social.twitter.api.FilterStreamParameters;
-import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.TwitterProfile;
+import org.springframework.social.twitter.api.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
+import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by shaunthomas on 15/10/16.
@@ -18,6 +21,8 @@ import javax.inject.Inject;
 @Controller
 @RequestMapping("/")
 public class TweetsFetcherController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private Twitter twitter;
 
@@ -32,14 +37,17 @@ public class TweetsFetcherController {
     @RequestMapping(method= RequestMethod.GET)
     public String home(Model model) {
         if(connectionRepository.findPrimaryConnection(Twitter.class) == null) {
+            LOGGER.info("Going to perform authentication");
             return "redirect:/connect/twitter";
         }
 
-        model.addAttribute(twitter.userOperations().getUserProfile());
-        CursoredList<TwitterProfile> friends = twitter.friendOperations().getFriends();
+        TwitterProfile twitterProfile = twitter.userOperations().getUserProfile("ElsevierNews");
+        model.addAttribute(twitterProfile);
+        CursoredList<TwitterProfile> friends = twitter.friendOperations().getFriends(twitterProfile.getId());
         model.addAttribute("friends", friends);
-        FilterStreamParameters filterStreamParameters = new FilterStreamParameters();
-        twitter.streamingOperations().filter();
+        List<Tweet> tweets= twitter.timelineOperations().getUserTimeline(twitterProfile.getId(),30);
+        model.addAttribute("tweets", tweets);
+        
         return "home";
     }
 }
