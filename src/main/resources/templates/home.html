@@ -1,20 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Hello</title>
-    </head>
+    <head th:include="fragments/layout :: headerFragment"></head>
     <body>
-        <h3>Hello, <span th:text="${twitterProfile.name}">Some User</span>!</h3>
-
-        <h4>These are your friends:</h4>
-
-        <ul>
-            <li th:each="friend:${friends}" th:text="${friend.name}">Friend</li>
-        </ul>
+        <h3>Hello, <span th:text="${tweetsFetcherDisplayUser.screenName}">Some User</span>!</h3>
 
         <h4>Last 30 tweets from the user:</h4>
 
         <ul>
-            <li th:each="tweet:${tweets}" th:text="${tweet.unmodifiedText}">Text</li>
+            <li th:each="tweet:${tweetsFetcherDisplayUser.tweets}" th:text="${tweet.unmodifiedText}">Text</li>
         </ul>
     </body>
 </html>
