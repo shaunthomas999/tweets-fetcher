@@ -38,6 +38,11 @@ public class TweetsFetcherController {
         this.connectionRepository = connectionRepository;
     }
 
+    /**
+     * Handles GET method request on root URL and displays tweets from the configured twitter user
+     * @param tweetsFetcherDisplayUser - Model to use in the page
+     * @return view name
+     */
     @RequestMapping(method= RequestMethod.GET)
     public String home(@ModelAttribute TweetsFetcherDisplayUser tweetsFetcherDisplayUser) {
         try {
