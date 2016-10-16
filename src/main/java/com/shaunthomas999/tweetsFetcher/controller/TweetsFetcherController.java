@@ -32,6 +32,9 @@ public class TweetsFetcherController {
     @Value("${app.tweetsFetcher.twitterUser}")
     private String twitterUser;
 
+    @Value("${app.tweetsFetcher.tweetsLimit}")
+    private String tweetsLimit;
+
     @Inject
     public TweetsFetcherController(Twitter twitter, ConnectionRepository connectionRepository) {
         this.twitter = twitter;
@@ -60,7 +63,8 @@ public class TweetsFetcherController {
             tweetsFetcherDisplayUser.setBackgroundImageUrl(twitterProfile.getBackgroundImageUrl());
 
             // Get tweets - twitter API allows only to fetch upto 200 tweets at a time
-            List<Tweet> tweets= twitter.timelineOperations().getUserTimeline(tweetsFetcherDisplayUser.getId(), 200);
+            List<Tweet> tweets= twitter.timelineOperations().getUserTimeline(tweetsFetcherDisplayUser.getId(),
+                Integer.parseInt(tweetsLimit));
 
             // Set tweets and tweet count for display
             tweetsFetcherDisplayUser.setTweets(tweets);
