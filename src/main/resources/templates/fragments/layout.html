@@ -1,7 +1,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:fragment="headerFragment">
+    <head th:fragment="headFragment">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+
         <title>Tweets Fetcher</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="stylesheet.css" />
     </head>
     <body>
+        <header th:fragment="headerFragment">
+            <div class="bg-primary text-center">
+                <h1>Tweets Fetcher</h1>
+            </div>
+        </header>
     </body>
 </html>

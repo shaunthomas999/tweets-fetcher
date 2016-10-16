@@ -21,6 +21,8 @@ public class TweetsFetcherDisplayUser {
 
     private List<Tweet> tweets;
 
+    private int tweetsCount;
+
     public long getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class TweetsFetcherDisplayUser {
 
     public void setTweets(List<Tweet> tweets) {
         this.tweets = tweets;
+    }
+
+    public int getTweetsCount() {
+        return tweetsCount;
+    }
+
+    public void setTweetsCount(int tweetsCount) {
+        this.tweetsCount = tweetsCount;
     }
 }
