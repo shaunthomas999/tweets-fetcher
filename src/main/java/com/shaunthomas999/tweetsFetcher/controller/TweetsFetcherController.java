@@ -59,7 +59,7 @@ public class TweetsFetcherController {
             tweetsFetcherDisplayUser.setScreenName(twitterProfile.getScreenName());
             tweetsFetcherDisplayUser.setBackgroundImageUrl(twitterProfile.getBackgroundImageUrl());
 
-            // Get tweets
+            // Get tweets - twitter API allows only to fetch upto 200 tweets at a time
             List<Tweet> tweets= twitter.timelineOperations().getUserTimeline(tweetsFetcherDisplayUser.getId(), 200);
 
             // Set tweets and tweet count for display
